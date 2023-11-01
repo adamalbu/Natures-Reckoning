@@ -244,8 +244,20 @@ label ep2:
             menu:
                 "Wait until tomorrow.":
                     m "I guess we {i}could{/i} wait until tomorrow."
-                    # TODO: finish
+                    k "Where would we even go to rest?"
+                    m "I guess we could find somwhere..."
+                    g "Follow me, I know an inn where we can stay."
+                    m "Sure."
                 "Go now.":
                     m "We have to go now."
-                    # TODO: finish
+                    g "Fine."
+                    jump .mayor_building
             # TODO: finish
+
+label .inn:
+    # TODO: finish 
+    pass
+
+label .mayor_building:
+    # TODO: finish
+    pass
