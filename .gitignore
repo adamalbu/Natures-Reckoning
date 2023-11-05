@@ -1,2 +1,8 @@
 
 .vscode/
+
+log.txt
+
+game/cache/
+
+game/saves/
