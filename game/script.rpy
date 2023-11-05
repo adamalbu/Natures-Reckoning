@@ -11,6 +11,7 @@ default k.health = 100
 
 define m = Character("[player_name]", image="player")
 default m.health = 100
+# TODO: player stats
 
 define all_npcs = {0: {"name": "Nathan", "known": False, "character": Character("???")}}
 
