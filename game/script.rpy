@@ -11,6 +11,7 @@ default k.health = 100
 
 define m = Character("[player_name]", image="player")
 default m.health = 100
+# TODO: player stats
 
 define all_npcs = {0: {"name": "Nathan", "known": False, "character": Character("???")}}
 
@@ -62,6 +63,8 @@ label ep1:
 
     "Intrigued by the enigmatic nature of the message, you, Kaelen Swiftblade, and Griff Ironstride, heed the call to adventure."
     "Your determination to unravel the mysteries surrounding these bizarre phenomena and your compassion for the suffering people of this distant kingdom make you the perfect candidates to face this enigmatic challenge."
+
+    "If you succeed, you will be hailed as heroes and saviors of the kingdom"
 
     scene bg on_ship
     
@@ -244,8 +247,20 @@ label ep2:
             menu:
                 "Wait until tomorrow.":
                     m "I guess we {i}could{/i} wait until tomorrow."
-                    # TODO: finish
+                    k "Where would we even go to rest?"
+                    m "I guess we could find somwhere..."
+                    g "Follow me, I know an inn where we can stay."
+                    m "Sure."
                 "Go now.":
                     m "We have to go now."
-                    # TODO: finish
+                    g "Fine."
+                    jump .mayor_building
             # TODO: finish
+
+label .inn:
+    # TODO: finish 
+    pass
+
+label .mayor_building:
+    # TODO: finish
+    pass
