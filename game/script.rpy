@@ -63,6 +63,8 @@ label ep1:
     "Intrigued by the enigmatic nature of the message, you, Kaelen Swiftblade, and Griff Ironstride, heed the call to adventure."
     "Your determination to unravel the mysteries surrounding these bizarre phenomena and your compassion for the suffering people of this distant kingdom make you the perfect candidates to face this enigmatic challenge."
 
+    "If you succeed, you will be hailed as heroes and saviors of the kingdom"
+
     scene bg on_ship
     
     "You sail towards the kingdom, the sea grows rough and the ship rocks violently."
