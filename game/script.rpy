@@ -11,9 +11,17 @@ default k.health = 100
 
 define m = Character("[player_name]", image="player")
 default m.health = 100
+define m.inventory = {}
 # TODO: player stats
 
-define all_npcs = {0: {"name": "Nathan", "known": False, "character": Character("???")}}
+# NPCS
+define character.goaneli = Character("???", image="goaneli")
+define goaneli.relevance = "Not Encountered"
+define goaneli.know_name = False
+
+define character.maci = Character("???", image="maci")
+define maci.known = "Not Encountered"
+define maci.know_name = False
 
 define n = nvl_narrator
 
@@ -41,7 +49,7 @@ label start:
 label ep1:
 
     "You and your friends (Kaelen Swiftblade and Griff Ironstride),
-    each receive a cryptic invitation or message, beckoning them to the kingdom in their time of need."
+    each receive a cryptic invitation or message, beckoning them to the city in their time of need."
 
     scene bg letter
 
@@ -54,22 +62,22 @@ label ep1:
 
     From the depths of an unknown sender's identity, this missive arrived, intriguing in its enigma.
 
-    There are dire circumstances plaguing this distant kingdom, a realm beset
+    There are dire circumstances plaguing this distant city, a realm beset
     by strange and unsettling natural disasters that defy explanation.
 
     The land cries out for aid, and its people yearn for heroes who possess the courage and valor to confront the inexplicable.
 
-    Prepare yourselves for an epic journey that will test your mettle and unravel the secrets shrouding the kingdom."""
+    Prepare yourselves for an epic journey that will test your mettle and unravel the secrets shrouding the city."""
 
     "Intrigued by the enigmatic nature of the message, you, Kaelen Swiftblade, and Griff Ironstride, heed the call to adventure."
-    "Your determination to unravel the mysteries surrounding these bizarre phenomena and your compassion for the suffering people of this distant kingdom make you the perfect candidates to face this enigmatic challenge."
+    "Your determination to unravel the mysteries surrounding these bizarre phenomena and your compassion for the suffering people of this distant city make you the perfect candidates to face this enigmatic challenge."
 
-    "If you succeed, you will be hailed as heroes and saviors of the kingdom"
+    "If you succeed, you will be hailed as heroes and saviors of the city"
 
     scene bg on_ship
     
-    "You sail towards the kingdom, the sea grows rough and the ship rocks violently."
-    extend " You see the kingdom in the distance, a dark cloud looming over it."
+    "You sail towards the city, the sea grows rough and the ship rocks violently."
+    "You see the city in the distance, a dark cloud looming over it."
     "Suddenly, the ship is hit by a powerful gust of wind and it crashes into some rocks, sending debris flying everywhere."
 
     g "What was that???"
@@ -99,7 +107,7 @@ label .ship_crash:
                     jump .post_crash    
                 elif dice >= 5:
                     "You try to pull yourself up but don't have enough strength."
-                    extend " Luckily, Griff notices you and pulls you up back onto the ship."
+                    "Luckily, Griff notices you and pulls you up back onto the ship."
                     g "Next time try to stay on the ship."
                     m angry "What was I meant to do???"
                     jump .post_crash
@@ -133,7 +141,7 @@ label .ship_crash:
                 jump .in_ocean_choices
             "Swim to a plank of wood":
                 "You swim to a plank of wood and grab onto it."
-                extend " Griff Ironstride notices you."
+                "Griff Ironstride notices you."
                 g shout "Swim to the boat, I'll pull you up!"
                 m "Ok!"
                 jump .post_crash
@@ -152,84 +160,83 @@ label .post_crash:
 label ep2:
     "You have arrived"
     m "{i}This place has been wrecked by the natural disasters.{/i}"
-    "???" "Hello!"
-
-    define npc_0 = "???"
-    $ npc_0 = all_npcs[0]['character']
-    menu .npc_0_interaction:
+    goaneli "Hello!"
+    $ goaneli.relevance = "Encountered"
+    menu .goaneli_interaction:
         "Hi!":
             m "Hi!"
-            npc_0 "..."
-            jump .npc_0_interaction
+            goaneli "..."
+            jump .goaneli_interaction
         "Who are you?":
             m "Who are you?"
-            npc_0 "I'm one of the locals here."
-            menu .npc_0_interaction_a:
+            goaneli "I'm one of the locals here."
+            menu .goaneli_interaction_a:
                 "What's your name?":
-                    if all_npcs[0]['known'] == False:
-                        npc_0 "Oh right."
+                    if goaneli.relevance = "Encountered":
+                        goaneli "Oh right,{nw}"
 
-                        $ npc_0_name = all_npcs[0]['name']
-                        $ all_npcs[0]['known'] = True
-                        $ all_npcs[0]['character'] = Character(all_npcs[0]['name'])
-                        $ npc_0 = all_npcs[0]['character']
+                        $ character.goaneli = Character("Goaneli", image="goaneli")
+                        $ goaneli.know_name = True
 
-                        extend " I'm [npc_0_name]."
-                    else:
-                        npc_0 "I already told you."
-                        $ npc_0_name = all_npcs[0]['name']
-                        extend " I'm [npc_0_name]."
-                    jump .npc_0_interaction_a
+                        goaneli "Oh right,{fast} I'm Goaneli."
+                    elif goaneli.know_name = True:
+                        goaneli "I already told you, I'm Goaneli."
+                    jump .goaneli_interaction_a
 
                 "{i}Back{/i}":
-                    jump .npc_0_interaction
+                    jump .goaneli_interaction
         "What happened?":
             m "What happened here?"
-            npc_0 "Do you really not know?"
+            goaneli "Do you really not know?"
 
-            menu .npc_0_interaction_b:
+            menu .goaneli_interaction_b:
                 "No.":
                     m "No, I really don't."
-                    npc_0 "Some really powerful natural disasters struck, almost all at once."
-                    extend " This whole kingdom got wrecked."
-                    npc_0 "And it's going to happend in the future."
-                    extend " Prettey soon too, I think"
-                    jump .npc_0_interaction
+                    goaneli "Some really powerful natural disasters struck."
+                    goaneli " This whole city got wrecked, and others too."
+                    goaneli "And it's going to happend again."
+                    jump .goaneli_interaction
                 "Yes.":
                     m "Oh wait, I remember now."
-                    jump .npc_0_interaction
+                    jump .goaneli_interaction
                 "{i}Back{/i}":
-                    jump .npc_0_interaction
+                    jump .goaneli_interaction
 
         "How to stop?":
             m "How do we stop this mess?"
-            npc_0 "No idea."
-            extend " You should probbably talk to the mayor about that."
+            goaneli "No idea."
+            goaneli "You should probbably talk to the mayor about that."
             $ how_to_stop_interaction = True
-            jump .npc_0_interaction
+            jump .goaneli_interaction
 
         "Where is mayor?" if 'how_to_stop_interaction' in locals():
             m "Where could I find the mayor?"
-            npc_0 "In that building over there."
-            npc_0 "That really tall one."
-            extend " It's the tallest in the kingdom."
+            goaneli "The mayor the tallest in the city."
             m "Ok, thanks."
             $ where_is_mayor = True
-            jump .npc_0_interaction
+            jump .goaneli_interaction
         
         "Bye!":
             m "Bye!"
-            npc_0 "Bye!"
+            goaneli "Wait."
+            goaneli "After you finish that, can you help me find the Whispering Stone?"
+            menu:
+                "Sure.":
+                    m "Sure."
+                    goaneli "Thanks!"
+                    goaneli "I'll be waiting here."
+                "What's that?":
+                    m "What's that?"
+                    goaneli "I'll tell you later."
 
     if how_to_stop_interaction:
         m "{i}We should probabbly go talk to the mayor then...{/i}"
-    "What do you want to do?"
     menu:
-        "Talk to the person again." if not all_npcs[0]['known']:
-            jump .npc_0_interaction
+        "Talk to the person again." if not goaneli.know_name:
+            jump .goaneli_interaction
         
-        "Talk to [npc_0_name]" if all_npcs[0]['known']:
-            jump .npc_0_interaction
+        "Talk to Goaneli" if goaneli.know_name:
+            jump .goaneli_interaction
 
         "Find the mayor" if where_is_mayor:
             m "{i}He did say the mayor was in the tallest building in the city.{/i}"
@@ -239,28 +246,83 @@ label ep2:
             m "In a tall building."
             k "Which one?"
             m "The tallest one here."
-            extend " You should be able to see it."
+            m "You should be able to see it."
             k "I see it."
             m "Let's go."
             g "We just arrived!"
             g "Can't it wait until tomorrow?"
             menu:
                 "Wait until tomorrow.":
-                    m "I guess we {i}could{/i} wait until tomorrow."
+                    m "I guess we {b}could{/b} wait until tomorrow..."
                     k "Where would we even go to rest?"
                     m "I guess we could find somwhere..."
                     g "Follow me, I know an inn where we can stay."
                     m "Sure."
+                    jump .inn_first_time
                 "Go now.":
                     m "We have to go now."
                     g "Fine."
                     jump .mayor_building
-            # TODO: finish
 
-label .inn:
-    # TODO: finish 
+label .inn_first_time:
+    scene bg inn
+    "You arrive at the inn."
+    """The inn is a two-storey building of stone walls, with several stained glass windows and a tiled mosaic floor.
+    Accomodations consist of several small rooms with beds and woolen mattresses."""
+    "You are greeted by an elf."
+    $ maci.relevance = "Encountered"
+    jump inn
+
+label inn:
+    maci "Hello, welcome to the inn."
+    menu .maci_interaction:
+        "Hello.":
+            m "Hello."
+            maci "What can I help you with?"
+            jump .maci_interaction
+        "Who are you?":
+            m "Who are you?"
+            maci "I'm Maci{nw}"
+            $ character.maci = Character("Maci", image="maci")
+            $ maci.know_name = True
+            maci "I'm Maci{fast}, the owner of this inn."
+            jump .maci_interaction
+        "How much is a room?":
+            m "How much is a room?"
+            maci "It's 5 gold coins per night."
+            jump .maci_interaction
+        "Rent a room.":
+            m "I'd like to rent a room."
+            maci "Sure, that'll be 5 gold coins."
+            if m.inventory['gold'] >= 5:
+                m "Here you go."
+                $ m.inventory['gold'] -= 5
+                maci "Here's your key."
+                $ m.inventory['inn key'] = 1
+                m "Thanks."
+                jump inn_room
+            else:
+                m "I don't have enough."
+                maci "Come back when you do."
+                $ need_gold = True
+            maci "Here's your key."
+            m "Thanks."
+            jump .inn_first_time
+        "Bye!":
+            m "Bye!"
+            maci "Bye!"
+    if need_gold in locals():
+        m "{i}We need to find some gold.{/i}"
+        m "{cps=*2}We need to find some gold{/cps}"
     pass
 
+label inn_room:
+    scene bg inn_room
+    "{b}This bit hasn't been finished yet.{/b}"
+    # TODO: finish inn room
+
 label .mayor_building:
-    # TODO: finish
+    scene bg mayor_building
+    "{b}This bit hasn't been finished yet.{/b}"
+    # TODO: finish mayor building
     pass
