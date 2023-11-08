@@ -23,7 +23,7 @@ define gui.show_name = True
 
 ## The version of the game.
 
-define config.version = "0.0.2 prototype"
+define config.version = "0.0.2_prototype"
 
 
 ## Text that is placed on the game's about screen. Place the text between the
@@ -159,6 +159,15 @@ define config.window_icon = "gui/window_icon.png"
 
 init python:
 
+    def alter_say_strings( str_to_test ):
+        str_map = {
+            "," : ",{w=0.45}"
+        }
+        for key in str_map:
+            str_to_test = str_to_test.replace( key, str_map[ key ] ) 
+        return str_to_test
+
+
     ## The following functions take file patterns. File patterns are case-
     ## insensitive, and matched against the path relative to the base directory,
     ## with and without a leading /. If multiple patterns match, the first is
@@ -207,3 +216,4 @@ init python:
 ## by a slash.
 
 # define build.itch_project = "renpytom/test-project"
+define config.say_menu_text_filter = alter_say_strings
