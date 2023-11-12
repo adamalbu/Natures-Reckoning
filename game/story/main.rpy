@@ -1,8 +1,21 @@
 # The game starts here.
 
 label start:
+
+    $ m.stats = {
+        "strength": 0,
+        "dexterity": 0,
+        "constitution": 0,
+        "intelligence": 0,
+        "wisdom": 0,
+        "charisma": 0
+    }
+
+    show screen player_points
 # The phrase in the brackets is the text that the game will display to prompt 
 # the player to enter the name they've chosen.
+
+    "Hi!"
 
     $ player_name = renpy.input("What is your name?", length=32)
     $ player_name = player_name.strip()

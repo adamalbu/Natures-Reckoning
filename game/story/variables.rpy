@@ -9,10 +9,11 @@ default g.health = 100
 define character.k = Character("Kaelen Swiftblade", image="kaelen")
 default k.health = 100
 
-define m = Character("[player_name]", image="player")
+define character.m = Character("[player_name]", image="player")
 default m.health = 100
-define m.inventory = {}
-# TODO: player stats
+default m.inventory = {}
+default m.stats = {}
+# More info: www.wargamer.com/dnd/stats
 
 # NPCS
 define character.goaneli = Character("???", image="goaneli")
