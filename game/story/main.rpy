@@ -22,6 +22,7 @@ label inn:
             m "Hello."
             maci "What can I help you with?"
             jump .maci_interaction
+        
         "Who are you?":
             m "Who are you?"
             maci "I'm Maci{nw}"
@@ -29,13 +30,16 @@ label inn:
             $ maci.know_name = True
             maci "I'm Maci{fast}, the owner of this inn."
             jump .maci_interaction
+        
         "How much is a room?":
             m "How much is a room?"
             maci "It's 5 gold coins per night."
             jump .maci_interaction
+        
         "Rent a room.":
             m "I'd like to rent a room."
             maci "Sure, that'll be 5 gold coins."
+            
             if m.inventory['gold'] >= 5:
                 m "Here you go."
                 $ m.inventory['gold'] -= 5
@@ -43,6 +47,7 @@ label inn:
                 $ m.inventory['inn key'] = 1
                 m "Thanks."
                 jump inn_room
+            
             else:
                 m "I don't have enough."
                 maci "Come back when you do."
@@ -50,6 +55,7 @@ label inn:
             maci "Here's your key."
             m "Thanks."
             jump inn_room
+        
         "Bye!":
             m "Bye!"
             maci "Bye!"
