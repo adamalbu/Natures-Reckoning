@@ -11,7 +11,10 @@ label start:
         "charisma": 0
     }
 
-    show screen player_points
+    call screen player_points # TODO: don't make an after_start label, just call the screen here if possible
+
+label after_start:
+    # hide screen player_points
 # The phrase in the brackets is the text that the game will display to prompt 
 # the player to enter the name they've chosen.
 

@@ -1,5 +1,5 @@
 screen player_points():
-        tag menu # FIXME: not working
+        tag menu
 
         add gui.main_menu_background
 
@@ -37,4 +37,4 @@ screen player_points():
                                 text "[wisdom]" size 40
                                 text "[charisma]" size 40
                 
-                        textbutton "Back" # TODO: go back to game
+                        textbutton "Back" action Jump("after_start")
